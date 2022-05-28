@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace MatrixRest.Controllers;
     [ApiController]
+    [EnableCors]
     [Route("[controller]")]
     public class MatrixOperationsController:ControllerBase
     {
@@ -14,7 +15,6 @@ namespace MatrixRest.Controllers;
             _MatrixProvider = matrixProvider;
         }
 
-        [EnableCors]
         [HttpPost]
         [Route("Multiply")]
         public ActionResult<string> Multiply(string StrMatrixA, string StrMatrixB){
