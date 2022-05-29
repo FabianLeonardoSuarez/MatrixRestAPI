@@ -17,11 +17,11 @@ namespace MatrixRest.Controllers;
 
         [HttpPost]
         [Route("Multiply")]
-        public ActionResult<string> Multiply(string StrMatrixA, string StrMatrixB){
+        public ActionResult<string> Multiply([FromBody] MatrixContentDTO MatrixContent){
             //int[,] MatrixA = new int[2,4]{{5,3,-4,-2},{8,-1,0,-3}};
             //int[,] MatrixB = new int[4,3]{{1,4,0},{-5,3,7},{0,-9,5},{5,1,4}};
-            int[,] MatrixA = TransformStringtoMatrix(StrMatrixA);
-            int[,] MatrixB = TransformStringtoMatrix(StrMatrixB);
+            int[,] MatrixA = TransformStringtoMatrix(MatrixContent.StrMatrixA);
+            int[,] MatrixB = TransformStringtoMatrix(MatrixContent.StrMatrixB);
             string result = _MatrixProvider.MatrixMultiplication(MatrixA,MatrixB);
             if(result == null)
                 return Problem("The dimensions of the array make not posible to multiply them.");
@@ -46,4 +46,9 @@ namespace MatrixRest.Controllers;
             return result;
         }
 
+    }
+
+    public record MatrixContentDTO{
+        public string StrMatrixA {get; set;}
+        public string StrMatrixB {get; set;}
     }
